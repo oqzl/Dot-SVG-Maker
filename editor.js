@@ -446,6 +446,10 @@
   }, { passive: false });
 
   canvas.addEventListener('touchend', () => { isDrawing = false; });
+  canvas.addEventListener('touchcancel', () => {
+    isDrawing = false;
+    lastDrawnCell = null;
+  });
 
   // --- Tool buttons ---
   document.querySelectorAll('.tool-btn').forEach(btn => {
