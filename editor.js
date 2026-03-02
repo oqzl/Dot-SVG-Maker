@@ -438,8 +438,8 @@
   }, { passive: false });
 
   canvas.addEventListener('touchmove', e => {
-    e.preventDefault();
     if (!isDrawing) return;
+    e.preventDefault();
     const cell = touchCell(e);
     if (!cell) return;
     if (lastDrawnCell && cell.x === lastDrawnCell.x && cell.y === lastDrawnCell.y) return;
