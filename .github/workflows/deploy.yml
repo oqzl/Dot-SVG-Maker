@@ -35,7 +35,6 @@ jobs:
             index.html
             style.css
             editor.js
-            assets
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
