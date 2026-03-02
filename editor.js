@@ -233,6 +233,7 @@
       sw.style.background = color;
       sw.dataset.color = color;
       sw.title = color;
+      sw.setAttribute('aria-label', color);
       sw.addEventListener('click', () => setColor(color));
       paletteEl.appendChild(sw);
     });
