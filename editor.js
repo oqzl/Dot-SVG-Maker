@@ -527,9 +527,10 @@
 
   // --- Keyboard shortcuts ---
   document.addEventListener('keydown', e => {
+    const ae = document.activeElement;
+    if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.isContentEditable)) return;
     if ((e.ctrlKey || e.metaKey) && e.key === 'z') { e.preventDefault(); undo(); return; }
     if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.shiftKey && e.key === 'z'))) { e.preventDefault(); redo(); return; }
-    if (document.activeElement.tagName === 'INPUT') return;
     switch (e.key.toLowerCase()) {
       case 'p': setTool('pencil'); break;
       case 'e': setTool('eraser'); break;
