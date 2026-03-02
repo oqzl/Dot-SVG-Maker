@@ -393,6 +393,11 @@
       return;
     }
 
+    if (currentTool === 'eyedropper') {
+      applyTool(cell);
+      return;
+    }
+
     isDrawing = true;
     lastDrawnCell = null;
     saveHistory();
@@ -428,6 +433,12 @@
       render();
       return;
     }
+
+    if (currentTool === 'eyedropper') {
+      applyTool(cell);
+      return;
+    }
+
     isDrawing = true;
     lastDrawnCell = null;
     saveHistory();
