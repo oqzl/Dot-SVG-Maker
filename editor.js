@@ -181,10 +181,8 @@
      ============================================================ */
   function cellAt(e) {
     const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const cx = Math.floor((e.clientX - rect.left) * scaleX / cellSize);
-    const cy = Math.floor((e.clientY - rect.top) * scaleY / cellSize);
+    const cx = Math.floor((e.clientX - rect.left) / cellSize);
+    const cy = Math.floor((e.clientY - rect.top) / cellSize);
     if (cx < 0 || cy < 0 || cx >= gridW || cy >= gridH) return null;
     return { x: cx, y: cy };
   }
