@@ -370,8 +370,11 @@
     a.download = filename;
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    // Defer cleanup to avoid cancelling/corrupting the download in some browsers
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 0);
   }
 
   /* ============================================================
