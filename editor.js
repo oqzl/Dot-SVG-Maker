@@ -316,7 +316,26 @@
     const mimeType = format === 'webp' ? 'image/webp' : 'image/png';
     const ext = format === 'webp' ? 'webp' : 'png';
     offscreen.toBlob(blob => {
-      if (blob) downloadBlob(blob, `dot-art.${ext}`);
+      if (blob) {
+        downloadBlob(blob, `dot-art.${ext}`);
+        return;
+      }
+
+      // Handle unsupported MIME types (e.g., WebP) or other failures.
+      if (format === 'webp') {
+        // Fallback: try exporting as PNG instead.
+        offscreen.toBlob(fallbackBlob => {
+          if (fallbackBlob) {
+            // Inform the user that WebP is not supported and PNG was used.
+            alert('Your browser does not support WebP export. Exported PNG instead.');
+            downloadBlob(fallbackBlob, 'dot-art.png');
+          } else {
+            alert('Export failed: your browser does not support this image export.');
+          }
+        }, 'image/png');
+      } else {
+        alert('Export failed: your browser does not support this image export.');
+      }
     }, mimeType);
   }
 
