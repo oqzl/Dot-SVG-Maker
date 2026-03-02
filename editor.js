@@ -84,8 +84,20 @@
   }
 
   function resizeCanvas() {
-    canvas.width = gridW * cellSize;
-    canvas.height = gridH * cellSize;
+    const dpr = window.devicePixelRatio || 1;
+    const displayWidth = gridW * cellSize;
+    const displayHeight = gridH * cellSize;
+
+    // Set backing store size in physical pixels
+    canvas.width = displayWidth * dpr;
+    canvas.height = displayHeight * dpr;
+
+    // Set CSS size in logical pixels
+    canvas.style.width = displayWidth + 'px';
+    canvas.style.height = displayHeight + 'px';
+
+    // Scale drawing operations so existing code still uses logical coordinates
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   /* ============================================================
