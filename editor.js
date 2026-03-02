@@ -144,26 +144,35 @@
      History (undo/redo)
      ============================================================ */
   function saveHistory() {
-    undoStack.push(flatCopy(pixels));
+    undoStack.push(makeSnapshot());
     if (undoStack.length > MAX_HISTORY) undoStack.shift();
     redoStack.length = 0;
   }
 
-  function flatCopy(px) {
-    return px.map(row => [...row]);
+  function makeSnapshot() {
+    return { w: gridW, h: gridH, pixels: pixels.map(row => [...row]) };
+  }
+
+  function restoreSnapshot(snap) {
+    gridW = snap.w;
+    gridH = snap.h;
+    pixels = snap.pixels.map(row => [...row]);
+    document.getElementById('canvas-width').value = gridW;
+    document.getElementById('canvas-height').value = gridH;
+    resizeCanvas();
   }
 
   function undo() {
     if (!undoStack.length) return;
-    redoStack.push(flatCopy(pixels));
-    pixels = undoStack.pop();
+    redoStack.push(makeSnapshot());
+    restoreSnapshot(undoStack.pop());
     render();
   }
 
   function redo() {
     if (!redoStack.length) return;
-    undoStack.push(flatCopy(pixels));
-    pixels = redoStack.pop();
+    undoStack.push(makeSnapshot());
+    restoreSnapshot(redoStack.pop());
     render();
   }
 
