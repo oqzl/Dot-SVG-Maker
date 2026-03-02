@@ -414,7 +414,6 @@
 
   // Touch support
   function touchCell(e) {
-    e.preventDefault();
     const touch = e.touches[0];
     return cellAt({ clientX: touch.clientX, clientY: touch.clientY });
   }
@@ -422,6 +421,7 @@
   canvas.addEventListener('touchstart', e => {
     const cell = touchCell(e);
     if (!cell) return;
+    e.preventDefault();
     if (currentTool === 'fill') {
       saveHistory();
       floodFill(cell.x, cell.y, pixels[cell.y][cell.x], currentColor);
