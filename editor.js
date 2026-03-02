@@ -104,12 +104,12 @@
      Render
      ============================================================ */
   function render() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, gridW * cellSize, gridH * cellSize);
 
     // Background
     if (!transparentBg) {
       ctx.fillStyle = bgColor;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, gridW * cellSize, gridH * cellSize);
     }
 
     // Pixels
